@@ -1,6 +1,6 @@
-export const quetions = [
+export const questions = [
   {
-    quetion: "¿Ventaja para quien?",
+    question: "¿Ventaja para quien?",
     options: [
       { text: "Usuarios y Finanzas", isCorrect: false },
       { text: "Usuarios y Ciudadano", isCorrect: false },
@@ -9,7 +9,7 @@ export const quetions = [
     ],
   },
   {
-    quetion: "¿Cual NO hace parte del concepto de la 7R's?",
+    question: "¿Cual NO hace parte del concepto de la 7R's?",
     options: [
       { text: "Remover", isCorrect: true },
       { text: "Rediseñar", isCorrect: false },
@@ -18,12 +18,12 @@ export const quetions = [
     ],
   },
   {
-    quetion: "¿Pregunta random?",
+    question: "¿Pregunta random?",
     options: [
       { text: "mala", isCorrect: false },
-      { text: "mala", isCorrect: false },
+      { text: "malaa", isCorrect: false },
       { text: "buena", isCorrect: true },
-      { text: "mala", isCorrect: false },
+      { text: "malaaa", isCorrect: false },
     ],
   },
 ];
