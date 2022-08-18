@@ -1,97 +1,83 @@
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-import AnswersBtn from "./components/atoms/AnswersBtn/AnswersBtn";
-import Button from "./components/atoms/Button/Button";
-import Spacer from "./components/atoms/Spacer/Spacer";
-import { colors, fontSize } from "./styles/global";
+import React, { useEffect, useState } from "react";
+import Quiz from "./components/pages/Quiz/Quiz";
+import QuizResult from "./components/pages/QuizResult/QuizResult";
+import StartQuiz from "./components/pages/StartQuiz/StartQuiz";
+import { colors, Container } from "./styles/global";
 import { questions } from "./utils/questions";
 
-const Container = styled.section`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: center;
-  width: 100%;
-`;
-
-const Question = styled.div`
-  align-items: center;
-  display: flex;
-  height: 30rem;
-  justify-content: center;
-  padding: 0 3rem;
-  position: relative;
-  width: 100%;
-
-  .question {
-    font-size: ${fontSize.font26};
-    text-align: justify;
-  }
-
-  .counter {
-    color: ${colors.paragraph};
-    font-size: ${fontSize.font22};
-    position: absolute;
-    right: 3rem;
-    top: 3rem;
-  }
-
-  .timer {
-    bottom: 3rem;
-    color: ${colors.buttons};
-    font-size: ${fontSize.font24};
-    position: absolute;
-    right: 3rem;
-  }
-`;
+interface user {
+  name: string;
+  score: number;
+}
 
 function App() {
+  const [userInfo, setUserInfo] = useState<user>({
+    name: "",
+    score: 0,
+  });
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState(0);
   const [isFinish, setIsFinish] = useState(false);
-  const [timer, setTimer] = useState(15);
+  const [timer, setTimer] = useState(10);
+  const [answersDisabled, setanswersDisabled] = useState(false);
+  const [startQuiz, setStartQuiz] = useState(false);
 
-  const handleAnswerSubmit = (
-    e: React.BaseSyntheticEvent,
-    isCorrect: boolean,
-    id: string
-  ) => {
+  const handleChange = (e: React.BaseSyntheticEvent) => {
+    setUserInfo({ ...userInfo, name: e.target.value });
+  };
+
+  const handleAnswerSubmit = (isCorrect: boolean, id: string) => {
     const userAnswer = document.getElementById(id);
     //añadir puntuación
-    if (isCorrect) setScore(score + 1);
+    if (isCorrect) {
+      setUserInfo({ ...userInfo, score: userInfo.score + 1 });
+    }
+    setanswersDisabled(true);
     //añadir estilos
     userAnswer!.style.background = isCorrect
       ? colors.correct
       : colors.incorrect;
+
+    setTimeout(() => {
+      questions[currentQuestion].options.forEach(item => {
+        if (item.isCorrect && !isCorrect)
+          document.getElementById(item.text)!.style.background = colors.correct;
+      });
+    }, 1000);
     //cambiar puntuación
     setTimeout(() => {
       if (currentQuestion === questions.length - 1) {
         setIsFinish(true);
+        setStartQuiz(!startQuiz);
       } else {
         setCurrentQuestion(currentQuestion + 1);
-        setTimer(15);
+        setTimer(10);
+        setanswersDisabled(false);
       }
-    }, 1500);
+    }, 2000);
   };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (timer > 0) setTimer(prev => prev - 1);
-      if (timer === 0) {
-        if (currentQuestion === questions.length - 1) {
-          setIsFinish(true);
-        } else {
-          questions[currentQuestion].options.forEach(item => {
-            if (item.isCorrect) {
-              const userAnswer = document.getElementById(item.text);
-              userAnswer!.style.background = colors.correct;
-            }
-          });
-          setTimeout(() => {
-            setCurrentQuestion(currentQuestion + 1);
-            setTimer(15);
-          }, 1500);
+      if (startQuiz) {
+        if (timer > 0) setTimer(prev => prev - 1);
+        if (timer === 0) {
+          setanswersDisabled(true);
+          if (currentQuestion === questions.length - 1) {
+            setIsFinish(true);
+            setStartQuiz(!startQuiz);
+            localStorage.setItem("user", JSON.stringify(userInfo));
+          } else {
+            questions[currentQuestion].options.forEach(item => {
+              if (item.isCorrect)
+                document.getElementById(item.text)!.style.background =
+                  colors.correct;
+            });
+            setTimeout(() => {
+              setCurrentQuestion(currentQuestion + 1);
+              setTimer(10);
+              setanswersDisabled(false);
+            }, 1500);
+          }
         }
       }
     }, 1000);
@@ -99,39 +85,55 @@ function App() {
     return () => {
       clearInterval(interval);
     };
-  }, [timer]);
+  }, [timer, startQuiz]);
 
+  useEffect(() => {
+    if (isFinish) localStorage.setItem("user", JSON.stringify(userInfo));
+  }, [isFinish]);
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (typeof user === "string") {
+      const userParse = JSON.parse(user);
+
+      if (userParse && userParse.name.length >= 0 && userParse.score >= 0) {
+        setUserInfo(userParse);
+        setIsFinish(true);
+        setStartQuiz(false);
+      } else {
+        setUserInfo({ name: "", score: 0 });
+        setIsFinish(false);
+        setStartQuiz(false);
+      }
+    }
+  }, []);
   return (
     <main className="app">
       <Container>
-        {!isFinish ? (
-          <>
-            <Question className="">
-              <h1 className="question">
-                {questions[currentQuestion].question}
-              </h1>
-              <span className="counter">
-                preguntas {currentQuestion + 1} / {questions.length}
-              </span>
-              <span className="timer">{timer} s</span>
-            </Question>
-            <Spacer vertical="5rem" />
-            {questions[currentQuestion].options.map(answer => (
-              <AnswersBtn
-                key={answer.text}
-                id={answer.text}
-                answer={answer.text}
-                onClick={handleAnswerSubmit}
-                isCorrect={answer.isCorrect}
-              />
-            ))}
-          </>
+        {!isFinish && startQuiz ? (
+          <Quiz
+            questions={questions[currentQuestion]}
+            currentQuestion={currentQuestion}
+            handleAnswerSubmit={handleAnswerSubmit}
+            answersDisabled={answersDisabled}
+            timer={timer}
+            numberOfQuestions={questions.length}
+          />
+        ) : isFinish && !startQuiz ? (
+          <QuizResult
+            name={userInfo.name}
+            score={userInfo.score}
+            numberOfQuestions={questions.length}
+          />
         ) : (
-          <div>
-            <h1>
-              obtuviste {score} punto de {questions.length}
-            </h1>
-          </div>
+          !isFinish &&
+          !startQuiz && (
+            <StartQuiz
+              value={userInfo.name}
+              onChange={handleChange}
+              onClick={() => setStartQuiz(!startQuiz)}
+            />
+          )
         )}
       </Container>
     </main>

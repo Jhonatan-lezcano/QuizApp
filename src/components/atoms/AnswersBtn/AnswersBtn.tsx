@@ -1,4 +1,3 @@
-import React, { ReactHTMLElement } from "react";
 import { Answers } from "./AnswersBtnstyles";
 
 interface Props {
@@ -6,15 +5,16 @@ interface Props {
   onClick: Function;
   isCorrect: boolean;
   id: string;
+  disabled: boolean;
 }
 
-const AnswersBtn = ({ answer, onClick, isCorrect, id }: Props) => {
-  // console.log(isCorrect);
+const AnswersBtn = ({ answer, onClick, isCorrect, id, disabled }: Props) => {
   return (
     <Answers
       id={id}
       width="90%"
-      onClick={(e: React.BaseSyntheticEvent) => onClick(e, isCorrect, id)}
+      onClick={() => onClick(isCorrect, id)}
+      disabled={disabled}
     >
       {answer}
     </Answers>

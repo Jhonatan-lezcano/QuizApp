@@ -60,3 +60,13 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 `;
+
+export const Container = styled.section`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  padding: 0 3rem;
+  width: 100%;
+`;
