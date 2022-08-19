@@ -13,8 +13,8 @@ export const questions = [
     options: [
       { text: "Usuarios y Finanzas", isCorrect: false },
       { text: "Usuarios y Ciudadano", isCorrect: false },
-      { text: "Usuarios y Empresas", isCorrect: false },
-      { text: "Usuarios y Medioambientales", isCorrect: true },
+      { text: "Usuarios y Empresas", isCorrect: true },
+      { text: "Usuarios y Medioambientales", isCorrect: false },
     ],
   },
   {
