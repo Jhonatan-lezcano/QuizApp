@@ -17,7 +17,7 @@ function App() {
   });
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isFinish, setIsFinish] = useState(false);
-  const [timer, setTimer] = useState(10);
+  const [timer, setTimer] = useState(15);
   const [answersDisabled, setanswersDisabled] = useState(false);
   const [startQuiz, setStartQuiz] = useState(false);
 
@@ -50,7 +50,7 @@ function App() {
         setStartQuiz(!startQuiz);
       } else {
         setCurrentQuestion(currentQuestion + 1);
-        setTimer(10);
+        setTimer(15);
         setanswersDisabled(false);
       }
     }, 2000);
@@ -74,7 +74,7 @@ function App() {
             });
             setTimeout(() => {
               setCurrentQuestion(currentQuestion + 1);
-              setTimer(10);
+              setTimer(15);
               setanswersDisabled(false);
             }, 1500);
           }
