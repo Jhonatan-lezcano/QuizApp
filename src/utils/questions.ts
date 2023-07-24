@@ -1,47 +1,63 @@
 export const questions = [
   {
-    question: "¿Qué es economía circular?",
+    question: "¿El casco rojo es utilizado por?",
     options: [
-      { text: "Sistemas de aprovechamiento de recursos", isCorrect: true },
-      { text: "Sistema de los recursos", isCorrect: false },
-      { text: "Sistemas de elementos", isCorrect: false },
-      { text: "Sistemas de productos", isCorrect: false },
+      { text: "Bomberos", isCorrect: false },
+      { text: "Brigada de emergencia", isCorrect: false },
+      { text: "Inspectores de seguridad", isCorrect: false },
+      { text: "Todas las anteriores", isCorrect: true },
     ],
   },
   {
-    question: "¿Ventaja para quien?",
+    question: "¿Cuál de las siguientes es un factor que influye en una caída?",
     options: [
-      { text: "Usuarios y Finanzas", isCorrect: false },
-      { text: "Usuarios y Ciudadano", isCorrect: false },
-      { text: "Usuarios y Empresas", isCorrect: true },
-      { text: "Usuarios y Medioambientales", isCorrect: false },
+      { text: "Botas de seguridad", isCorrect: false },
+      { text: "Posición de anclaje ( respuesta correcta)", isCorrect: true },
+      { text: "Plataformas elevadas", isCorrect: false },
+      { text: "Posición de andamios", isCorrect: false },
     ],
   },
   {
-    question: "¿Cual NO hace parte del concepto de la 7R's?",
+    question: "¿Que es altura libre de caída?",
     options: [
-      { text: "Rediseñar", isCorrect: false },
-      { text: "Remover", isCorrect: true },
-      { text: "Reducir", isCorrect: false },
-      { text: "Recuperar", isCorrect: false },
+      {
+        text: "Altura mínima y sin obstáculos que se encuentra bajo de  los pies del usuario",
+        isCorrect: true,
+      },
+      {
+        text: "Situación en dónde la persona no tiene los pies apoyados y queda sostenido por el arnés",
+        isCorrect: false,
+      },
+      {
+        text: "Actividades laborales que se realizan en lugares elevados",
+        isCorrect: false,
+      },
+      {
+        text: "Es aquella que se genera en caso de producirse una caída  debido al frenado de la misma",
+        isCorrect: false,
+      },
     ],
   },
   {
-    question: "¿Qué es economía lineal?",
+    question: "Cuál de los siguientes NO es un sistema de acceso:",
     options: [
-      { text: "Sistema que reduce, reutiliza y recicla", isCorrect: false },
-      { text: "Sistema que regula, consume y tira", isCorrect: false },
-      { text: "Sistema que consume, regula y tira", isCorrect: false },
-      { text: "Sistema que produce, consume y tira", isCorrect: true },
+      { text: "Andamios", isCorrect: false },
+      { text: "Plataformas elevadas", isCorrect: false },
+      { text: "Arneses, línea de vida y anclajes", isCorrect: true },
+      { text: "Ninguno de los anteriores", isCorrect: false },
     ],
   },
   {
-    question: "¿En qué año llega el foro 'Economía Circular' a Colombia? ",
+    question:
+      "Cuál de los siguientes pertenece al  programa de prevención y protección contra caídas:",
     options: [
-      { text: "12 de ablil del 2022", isCorrect: false },
-      { text: "14 de enero del 2021", isCorrect: false },
-      { text: "7 de abril del 2022", isCorrect: true },
-      { text: "27 de mayo del 2020", isCorrect: false },
+      { text: "Protocolos para trabajos en altura", isCorrect: false },
+      {
+        text: "Uso adecuado de los elementos de protección personal (epp)",
+        isCorrect: false,
+      },
+      { text: "Ninguno de los anteriores", isCorrect: false },
+      { text: "todos los anteriores", isCorrect: true },
     ],
   },
 ];
