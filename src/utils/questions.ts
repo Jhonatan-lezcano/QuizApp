@@ -12,7 +12,7 @@ export const questions = [
     question: "¿Cuál de las siguientes es un factor que influye en una caída?",
     options: [
       { text: "Botas de seguridad", isCorrect: false },
-      { text: "Posición de anclaje ( respuesta correcta)", isCorrect: true },
+      { text: "Posición de anclaje", isCorrect: true },
       { text: "Plataformas elevadas", isCorrect: false },
       { text: "Posición de andamios", isCorrect: false },
     ],
