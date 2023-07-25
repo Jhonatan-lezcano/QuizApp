@@ -15,7 +15,7 @@ const QuizResult = ({ name, score, numberOfQuestions }: Props) => {
       <h1 className="title">
         {score >= 3
           ? `Felicitaciones ${name.toUpperCase()} obtuviste ${score} puntos de ${numberOfQuestions}`
-          : `Lo sentimos ${name.toUpperCase()} pero obtuviste ${score} punto(s) de ${numberOfQuestions}, no te alcanza para la nota extra :'( `}
+          : `Lo sentimos ${name.toUpperCase()} pero obtuviste ${score} punto(s) de ${numberOfQuestions} :'( `}
       </h1>
       {score >= 3 ? <Congratulations /> : <Saddness />}
     </QuizResultStyles>
